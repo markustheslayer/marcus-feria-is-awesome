@@ -1,22 +1,136 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>Description</title>
-<link rel="stylesheet" href="ayy.css">
+<title>Story of My Life</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&family=Press+Start+2P&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
     background-color: black;
+    padding: 30px;
+    cursor: none;
+}
+
+#cursor {
+    width: 14px; height: 14px;
+    background: red;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px red, 0 0 20px darkred;
+}
+
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    font-size: 14px;
+    animation: sparkle-die 0.8s ease-out forwards;
+}
+@keyframes sparkle-die {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-25px) scale(0.3); }
+}
+
+.back-btn {
+    display: inline-block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: orange;
+    text-decoration: none;
+    border: 1px solid orange;
+    padding: 6px 12px;
+    margin-bottom: 30px;
+    transition: all 0.2s;
+}
+.back-btn:hover {
+    color: gold;
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+}
+
+h1 {
+    font-family: 'UnifrakturMaguntia', serif;
+    font-size: 72px;
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow:
+        0 0 15px #cc0000,
+        0 0 30px #880000,
+        0 0 60px #440000;
+    animation: evil-pulse 3s ease-in-out infinite alternate;
+}
+@keyframes evil-pulse {
+    from { text-shadow: 0 0 15px #cc0000, 0 0 30px #880000; }
+    to   { text-shadow: 0 0 25px #ff0000, 0 0 50px #cc0000, 0 0 80px #880000; }
+}
+
+.portrait-wrap {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.portrait-wrap img {
+    border: 3px solid darkred;
+    box-shadow: 0 0 30px #cc0000, 0 0 60px #44000088;
+    transition: box-shadow 0.3s;
+}
+.portrait-wrap img:hover {
+    box-shadow: 0 0 50px red, 0 0 100px #cc000088;
 }
 
 p {
-    font-family: Century Gothic;
-    font-size: 42px;
-    color: white;
-} 
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 22px;
+    color: #ddd;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(255,100,0,0.3);
+}
+
+p em {
+    color: orange;
+    font-style: normal;
+    text-shadow: 0 0 10px orange;
+}
 </style>
 </head>
 <body>
-<center><font face="Century Gothic" color="white" size="10">Story of my Life</font></center>
-<center><img src="abaddon.jpg"></center>
-<p>I am Marcus Feria, The Lord of Blackness (not to be confused with darkness), Harbinger of Roast Chicken, and Supreme Megadeth 0verlord of CWC Ville next to our saviour Chris-chan. I come to this plane for the sole purpose of wreaking havoc and chaos to mortals such as yourself.</p>
+
+<div id="cursor"></div>
+
+<a href="index.html" class="back-btn">← RETURN TO DOMAIN</a>
+
+<h1>Story of my Life</h1>
+
+<div class="portrait-wrap">
+  <img src="abaddon.jpg">
+</div>
+
+<p>I am <em>Marcus Feria</em>, The Lord of Blackness (not to be confused with darkness), <em>Harbinger of Roast Chicken</em>, and Supreme Megadeth 0verlord of CWC Ville next to our saviour Chris-chan. I come to this plane for the sole purpose of wreaking havoc and chaos to mortals such as yourself.</p>
+
+<script>
+const cursor = document.getElementById('cursor');
+const glyphs = ['💀','🩸','⚔️','🔥','☠️','👑'];
+
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    if (Math.random() > 0.65) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        s.style.left = (e.clientX + (Math.random() - 0.5) * 24) + 'px';
+        s.style.top  = (e.clientY + (Math.random() - 0.5) * 24) + 'px';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 800);
+    }
+});
+</script>
 </body>
 </html>

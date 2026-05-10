@@ -1,42 +1,137 @@
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="ayy.css">
+<title>F.A.Q</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel+Decorative:wght@900&display=swap" rel="stylesheet">
 <style>
-h1#d { 
-font-family: Century Gothic;
-color: white;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-image: url('aspergers.gif');
+    background-repeat: repeat;
+    padding: 30px;
+    cursor: none;
 }
 
-#d1 {
-    background-color: red;
-font-family: Century Gothic;
-color: white;
-font-size: 36px;
+#cursor {
+    width: 14px; height: 14px;
+    background: gold;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px gold, 0 0 20px gold;
 }
-#d2 {
-    background-color: yellow;
-font-family: Century Gothic;
-color: black;
-font-size: 36px;
+
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    font-size: 14px;
+    animation: sparkle-die 0.8s ease-out forwards;
 }
-body { background-image: url('aspergers.gif'); }
+@keyframes sparkle-die {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-25px) scale(0.3); }
+}
+
+.back-btn {
+    display: inline-block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: orange;
+    text-decoration: none;
+    border: 1px solid orange;
+    padding: 6px 12px;
+    margin-bottom: 30px;
+    transition: all 0.2s;
+}
+.back-btn:hover {
+    color: gold;
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+}
+
+h1 {
+    font-family: 'Cinzel Decorative', serif;
+    color: white;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px gold, 0 0 30px #ff8800;
+}
+
+.faq-item {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    border: 2px solid #444;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.faq-item:hover {
+    border-color: gold;
+    box-shadow: 0 0 15px rgba(255,215,0,0.3);
+}
+
+.faq-q {
+    background: #cc0000;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    padding: 16px 20px;
+    line-height: 1.7;
+}
+
+.faq-a {
+    background: #cccc00;
+    color: black;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    padding: 16px 20px;
+    line-height: 1.7;
+}
 </style>
 </head>
 <body>
-<center>
-<h1 id="d">Frequently Asked Questions</h1>
-</center>
 
-<div class="intro">
-  <p id="d1">What is the purpose/main goal of this website?</p>
-  <p id="d2">To gain profits by doing aboslutely nothing.</p><br>
+<div id="cursor"></div>
 
-<p id="d1">What are your plans to get attention to your website?</p>
-  <p id="d2">I'd tell my friends about it and tell them to tell their friends about it.</p><br>
+<a href="index.html" class="back-btn">← RETURN TO DOMAIN</a>
 
-<p id="d1">What are your plans for the future of your website?</p>
-  <p id="d2">When I get enough money, I'll retire to an island of my own rested and alone surrounded by enormous piles of money.</p><br>
+<h1>Frequently Asked Questions</h1>
 
+<div class="faq-item">
+  <div class="faq-q">What is the purpose / main goal of this website?</div>
+  <div class="faq-a">To gain profits by doing absolutely nothing.</div>
 </div>
+
+<div class="faq-item">
+  <div class="faq-q">What are your plans to get attention to your website?</div>
+  <div class="faq-a">I'd tell my friends about it and tell them to tell their friends about it.</div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q">What are your plans for the future of your website?</div>
+  <div class="faq-a">When I get enough money, I'll retire to an island of my own rested and alone surrounded by enormous piles of money.</div>
+</div>
+
+<script>
+const cursor = document.getElementById('cursor');
+const glyphs = ['★','✦','💀','🍗','🔥','👑','💰'];
+
+document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    if (Math.random() > 0.65) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        s.style.left = (e.clientX + (Math.random() - 0.5) * 24) + 'px';
+        s.style.top  = (e.clientY + (Math.random() - 0.5) * 24) + 'px';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 800);
+    }
+});
+</script>
 </body>
 </html>
