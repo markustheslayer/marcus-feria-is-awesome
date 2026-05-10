@@ -239,6 +239,70 @@ body {
 </div>
 
 <script>
+// ── SOUND ENGINE ──
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let ctx = null;
+function getCtx() { if (!ctx) ctx = new AudioContext(); return ctx; }
+
+function playHover() {
+    const c = getCtx();
+    const osc = c.createOscillator(), gain = c.createGain();
+    osc.connect(gain); gain.connect(c.destination);
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(880, c.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1200, c.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.06, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.1);
+    osc.start(); osc.stop(c.currentTime + 0.1);
+}
+
+function playClick() {
+    const c = getCtx();
+    const o1 = c.createOscillator(), g1 = c.createGain();
+    o1.connect(g1); g1.connect(c.destination);
+    o1.type = 'sawtooth';
+    o1.frequency.setValueAtTime(300, c.currentTime);
+    o1.frequency.exponentialRampToValueAtTime(60, c.currentTime + 0.15);
+    g1.gain.setValueAtTime(0.2, c.currentTime);
+    g1.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.2);
+    o1.start(); o1.stop(c.currentTime + 0.2);
+    const o2 = c.createOscillator(), g2 = c.createGain();
+    o2.connect(g2); g2.connect(c.destination);
+    o2.type = 'square';
+    o2.frequency.setValueAtTime(1400, c.currentTime);
+    o2.frequency.exponentialRampToValueAtTime(400, c.currentTime + 0.1);
+    g2.gain.setValueAtTime(0.08, c.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.12);
+    o2.start(); o2.stop(c.currentTime + 0.12);
+}
+
+function playNavHover() {
+    const c = getCtx();
+    const osc = c.createOscillator(), gain = c.createGain();
+    osc.connect(gain); gain.connect(c.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(523, c.currentTime);
+    osc.frequency.setValueAtTime(659, c.currentTime + 0.06);
+    osc.frequency.setValueAtTime(784, c.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.07, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.2);
+    osc.start(); osc.stop(c.currentTime + 0.2);
+}
+
+document.querySelectorAll('.nav-table td').forEach(td => {
+    td.addEventListener('mouseenter', playNavHover);
+});
+document.addEventListener('click', playClick);
+let lastHover = 0;
+document.addEventListener('mouseover', e => {
+    const tag = e.target.tagName;
+    if ((tag === 'A' || tag === 'IMG') && Date.now() - lastHover > 120) {
+        lastHover = Date.now();
+        playHover();
+    }
+});
+
+// ── CURSOR & SPARKLES ──
 const cursor = document.getElementById('cursor');
 const glyphs = ['★','✦','✧','⋆','💀','🍗','⚔️','🔥','👑'];
 
