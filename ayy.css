@@ -1,0 +1,11 @@
+a {
+  font-family: Trajan Pro;
+  font-size: 42px;
+  font-weight: bold;
+  color: white;
+}
+
+a:link { color: orange }
+a:visited { color: purple }
+a:hover { color: green }
+a:active { color: blue }
